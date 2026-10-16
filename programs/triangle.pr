@@ -1,0 +1,5 @@
+let add = rho[1](proj[1,1], succ . proj[3, 3])
+
+let triangle = rho[0](zero[0], succ . add . (proj[2, 1], proj[2,2]))
+
+triangle 2

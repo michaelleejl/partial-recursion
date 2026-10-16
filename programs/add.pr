@@ -1,0 +1,3 @@
+let add = rho[1](proj[1,1], succ . (proj[3, 3]))
+
+add (3, 5)
