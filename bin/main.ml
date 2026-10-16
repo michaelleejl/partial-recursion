@@ -4,13 +4,22 @@ open Backend
 
 let rec int_of_nat = function Lang.Target.Z -> 0 | Lang.Target.S n -> 1 + int_of_nat n
 
+let usage = "usage: pr [-m] FILE"
+
 let () =
-  match Sys.argv with
-  | [| _; file |] -> (
+  let minimisation = ref false and files = ref [] in
+  Arg.parse
+    [ ("-m", Arg.Set minimisation, " Enable minimisation (mu)") ]
+    (fun file -> files := file :: !files)
+    usage;
+  match !files with
+  | [ file ] -> (
       let source = In_channel.with_open_text file In_channel.input_all in
       try
         let { definitions; result } : Lang.Target.file =
-          Parse.file file source |> Check.file |> Elaborate.Inline.file
+          Parse.file file source
+          |> Check.file ~primitive:(not !minimisation)
+          |> Elaborate.Inline.file
         in
         List.iter
           (fun ({ name; arity; _ } : Lang.Target.definition) ->
@@ -30,5 +39,5 @@ let () =
             exit 1
         | None -> raise e))
   | _ ->
-      prerr_endline "usage: pr FILE";
+      prerr_endline usage;
       exit 2

@@ -10,6 +10,7 @@ rule token = parse
   | "proj" { PROJ }
   | "succ" { SUCC }
   | "rho" { RHO }
+  | "mu" { MU }
   | "let" { LET }
   | ['a'-'z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_' '\'']* as x { IDENT x }
   | '.' { DOT }
