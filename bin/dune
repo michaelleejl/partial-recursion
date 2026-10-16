@@ -1,0 +1,4 @@
+(executable
+ (public_name pr)
+ (name main)
+ (libraries partial_recursion))
