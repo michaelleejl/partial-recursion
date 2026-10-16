@@ -1,0 +1,4 @@
+(library
+ (name partial_recursion))
+
+(include_subdirs qualified)
